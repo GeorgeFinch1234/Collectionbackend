@@ -22,14 +22,14 @@ $config = [
     'showScriptName' => false,
     'rules' => [
         ['class' => 'yii\rest\UrlRule', 'controller' => 'user'],
+        ['class' => 'yii\rest\UrlRule', 'controller' => 'game'],
     ],
-    'request' => [
-    'parsers' => [
-        'application/json' => 'yii\web\JsonParser',
-    ]
-]
+],
+'response' => [
+    'format' => \yii\web\Response::FORMAT_JSON,
+    'charset' => 'UTF-8',
+],
 
-]
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],

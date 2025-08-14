@@ -2,12 +2,12 @@
 namespace app\controllers;
 
 use yii\rest\Controller;
-use app\models\User;
+use app\models\Game;
 
-class UserController extends Controller
+class GameController extends Controller
 {
     public function actionIndex()
     {
-        return $output = new User;
+        return $output = new Game;
     }
 }
