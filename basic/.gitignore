@@ -36,3 +36,9 @@ tests/_support/_generated
 
 #firbase
 /config/firebase_credentials.json
+
+#cacert
+/config/cacert-2025-08-12.pem
+
+#env
+/models/dbURL.php
