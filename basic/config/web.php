@@ -23,6 +23,7 @@ $config = [
     'rules' => [
         ['class' => 'yii\rest\UrlRule', 'controller' => 'user'],
         ['class' => 'yii\rest\UrlRule', 'controller' => 'game'],
+        'POST login/<userName>/<password>' =>'login/index',
     ],
 ],
 'response' => [

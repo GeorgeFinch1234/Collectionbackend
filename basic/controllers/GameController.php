@@ -17,7 +17,7 @@ class GameController extends Controller
         $database = $factory->createDatabase();
 
 
-         $snapshot = $database->getReference('/BoardGame/ticketToRide');
+         $snapshot = $database->getReference('/Game1');
 
          return $snapshot->getValue();
         
