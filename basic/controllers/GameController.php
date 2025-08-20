@@ -9,6 +9,8 @@ use Kreait\Firebase\Factory;
 
 class GameController extends Controller
 {
+
+   
     public function actionIndex()
     {
       
@@ -24,8 +26,24 @@ class GameController extends Controller
       
        
         
-        }
+    }
   
+    public function actionCreateGame(){
+        
+        $factory = (new Factory)->withServiceAccount("../config/firebase_credentials.json");
+        $factory = $factory->withDatabaseUri((new \app\models\DBURL)->URL);
+        $database = $factory->createDatabase();
+        $database->getReference('/user/user1/Game')
+    ->set([
+        'Game2' => [
+            'title' => 'support@example.com',
+            'playerCount' => 'sales@example.com',
+        ],
+        
+    ]);
+    return "success";
+    }
+
 
 
 public function behaviors()
