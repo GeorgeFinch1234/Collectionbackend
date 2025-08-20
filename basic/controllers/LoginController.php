@@ -3,16 +3,26 @@
 namespace app\controllers;
 use yii\rest\Controller;
 use app\models\signIn;
+use app\models\basicValidaiton;
 use yii\filters\auth\HttpBasicAuth;
 
 class LoginController extends Controller
 {
     public function actionIndex()
    {
-   
+   $error="";
     $loginCheck = new signIn();
-    return $loginCheck->login($_POST['username'], hash('sha256', $_POST['password']));
+    $validator = new basicValidaiton();
+    
+   $error = $validator->stringManditory($_POST['username']);
+    $error = $validator->stringManditory($_POST['password']);
    
+   if($error==""){
+    return $loginCheck->login($_POST['username'], hash('sha256', $_POST['password']));
+    }else{
+        return $error;
+    }
+    
     }
 
 
