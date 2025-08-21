@@ -19,9 +19,10 @@ class GameController extends Controller
         $database = $factory->createDatabase();
 
 
-         $snapshot = $database->getReference('/Game1');
+         $snapshot = $database->getReference('/user/user1/Games');
 
-         return $snapshot->getValue();
+
+      return $snapshot->getValue();
         
       
        
@@ -29,18 +30,26 @@ class GameController extends Controller
     }
   
     public function actionCreateGame(){
-        
+
+       
+
         $factory = (new Factory)->withServiceAccount("../config/firebase_credentials.json");
         $factory = $factory->withDatabaseUri((new \app\models\DBURL)->URL);
         $database = $factory->createDatabase();
-        $database->getReference('/user/user1/Game')
-    ->set([
+        $database->getReference('/user/user1/Games')
+    ->push([
         'Game2' => [
-            'title' => 'support@example.com',
-            'playerCount' => 'sales@example.com',
+            'name' => $_GET["name"],
+            'playerCount' => $_GET["playerCount"],
+            'imgRef'=>$_GET["imgRef"],
+            'imgAlt'=>$_GET["imgAlt"],
+            'description'=>$_GET["description"],
         ],
         
     ]);
+
+
+
     return "success";
     }
 
