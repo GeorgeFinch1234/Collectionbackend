@@ -18,6 +18,9 @@ class LoginController extends Controller
     $error = $validator->stringManditory($_POST['password']);
    
    if($error==""){
+    /* should make access token here and try to store it
+    or make it in another database somwhere
+    */
     return $loginCheck->login($_POST['username'], hash('sha256', $_POST['password']));
     }else{
         return $error;
