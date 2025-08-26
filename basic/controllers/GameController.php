@@ -5,12 +5,14 @@ use yii\rest\Controller;
 use app\models\Game;
 use yii\filters\auth\HttpBasicAuth;
 use Kreait\Firebase\Factory;
-
+use app\models\databaseConnetion;
 
 class GameController extends Controller
 {
 
-   
+   /*
+loads the game collection based on user access token.
+   */
     public function actionIndex()
     {
       
@@ -18,8 +20,11 @@ class GameController extends Controller
         $factory = $factory->withDatabaseUri((new \app\models\DBURL)->URL);
         $database = $factory->createDatabase();
 
+$databaseConnection = new databaseConnetion();
 
-         $snapshot = $database->getReference('/user/user1/Games');
+      $user=  $databaseConnection->getUserNameFromToken($_POST["token"]);
+
+         $snapshot = $database->getReference('/user/'.$user.'/games');
 
 
       return $snapshot->getValue();
@@ -36,15 +41,34 @@ class GameController extends Controller
         $factory = (new Factory)->withServiceAccount("../config/firebase_credentials.json");
         $factory = $factory->withDatabaseUri((new \app\models\DBURL)->URL);
         $database = $factory->createDatabase();
-        $database->getReference('/user/user1/Games')
+
+            $allTokens= $database->getReference('/accessTokens');
+
+            $user="";
+//return $allTokens->getValue();
+//return ""
+        foreach ($allTokens->getValue() as $key => $value) {
+            
+            if($value["token"] == $_POST["token"]){
+                $user =$value["user"];
+
+                
+            }
+
+            
+            }
+ 
+
+
+        $database->getReference('/user/'.$user.'/games')
     ->push([
-        'Game2' => [
-            'name' => $_GET["name"],
-            'playerCount' => $_GET["playerCount"],
-            'imgRef'=>$_GET["imgRef"],
-            'imgAlt'=>$_GET["imgAlt"],
-            'description'=>$_GET["description"],
-        ],
+        
+            'name' => $_POST["name"],
+            'playerCount' => $_POST["playerCount"],
+            'imgRef'=>$_POST["imgRef"],
+            'imgAlt'=>$_POST["imgAlt"],
+            'description'=>$_POST["description"],
+    
         
     ]);
 

@@ -28,6 +28,7 @@ $config = [
         'POST login' =>'login/index',
         'games' => 'game/index', 
         'create' => 'game/create-game', 
+        'POST signup' => 'login/sign-up',
        ],
 ],
 'response' => [

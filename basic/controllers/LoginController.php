@@ -4,15 +4,18 @@ namespace app\controllers;
 use yii\rest\Controller;
 use app\models\signIn;
 use app\models\basicValidaiton;
+use app\models\databaseConnetion;
 use yii\filters\auth\HttpBasicAuth;
 
 class LoginController extends Controller
 {
     public function actionIndex()
    {
-   $error="";
+   
+    $error="";
     $loginCheck = new signIn();
     $validator = new basicValidaiton();
+    $token = new databaseConnetion();
     
    $error = $validator->stringManditory($_POST['username']);
     $error = $validator->stringManditory($_POST['password']);
@@ -21,16 +24,32 @@ class LoginController extends Controller
     /* should make access token here and try to store it
     or make it in another database somwhere
     */
-    return $loginCheck->login($_POST['username'], hash('sha256', $_POST['password']));
-    }else{
-        return $error;
+    
+    $error= $loginCheck->login($_POST['username'], hash('sha256', $_POST['password']));
+if($error=="") {
+
+    return ["error"=>$error, "token"=>$token -> setAccessToken($_POST['username'])];
+}  else{
+    return ["error"=>$error];
+}
+
+}else{
+      return   ["error"=>$error];
     }
     
+    
+    return "";
     }
 
 
 
+public function actionSignUp(){
 
+    
+$signUp = new databaseConnetion();
+$signUp -> createUser($_POST['username'], $_POST['password']);
+return ["error"=>"", "token"=>$signUp -> setAccessToken($_POST['username'])];
+}
 public function behaviors()
 {
     $behaviors = parent::behaviors();

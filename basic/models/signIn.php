@@ -20,7 +20,7 @@ $output="no match";
 foreach($snapshot->getValue() as $user){
 
 
-          if($user["userName"] == $userName ){
+          if($user["username"] == $userName ){
                 
             if($user["password"] == $password){
                     $output ="";
