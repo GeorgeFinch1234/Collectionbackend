@@ -77,7 +77,17 @@ $databaseConnection = new databaseConnetion();
     return "success";
     }
 
+public function actionDeleteGame(){
+$databaseConnection = new databaseConnetion();
 
+/**
+ * 
+ * need to find the user ID and game ID
+ * 
+ * 
+ */
+return $databaseConnection->deleteGame($databaseConnection->getUserNameFromToken($_POST["Token"]), $_POST["Game"]);
+}
 
 public function behaviors()
 {

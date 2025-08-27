@@ -101,6 +101,30 @@ public function getUserNameFromToken($token){
             return $user;
 }
 
+/**
+ * 
+ * $ game is the unqiue idea that is made for games, and removes that whole node.
+ * 
+ */
+public function deleteGame($user, $game){
+
+$allUserGames= $this->database->getReference('/user/'.$user.'/games');
+$gameID ="";
+foreach ($allUserGames->getValue() as $key => $value) {
+            
+            if($value["name"] == $game){
+                $gameID = $key;
+
+                
+            }
+
+            
+            }
+
+  $this->database->getReference('/user/'.$user.'/games/'.$gameID)->set(null);
+return ('/user/'.$user.'/games/'.$gameID);
+}
+
 
 }
 
