@@ -77,6 +77,19 @@ $databaseConnection = new databaseConnetion();
     return "success";
     }
 
+
+
+public function actionEditGame(){
+
+$databaseConnection = new databaseConnetion();
+$databaseConnection->editSelectedGame($databaseConnection->getUserNameFromToken($_POST["token"]), $_POST["orginalGameName"], $_POST["imgPresent"]);
+
+
+}
+
+
+
+
 public function actionDeleteGame(){
 $databaseConnection = new databaseConnetion();
 
@@ -88,6 +101,20 @@ $databaseConnection = new databaseConnetion();
  */
 return $databaseConnection->deleteGame($databaseConnection->getUserNameFromToken($_POST["Token"]), $_POST["Game"]);
 }
+
+
+public function actionGameData(){
+$databaseConnection = new databaseConnetion();
+return $databaseConnection->getSelectedGameData($databaseConnection->getUserNameFromToken($_POST["Token"]), $_POST["Game"]);
+
+
+}
+
+
+
+
+
+
 
 public function behaviors()
 {

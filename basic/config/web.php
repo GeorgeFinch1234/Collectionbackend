@@ -29,7 +29,9 @@ $config = [
         'games' => 'game/index', 
         'create' => 'game/create-game', 
         'POST signup' => 'login/sign-up',
-        'POST delete/game' => 'game/delete-game'
+        'POST delete/game' => 'game/delete-game',
+        'POST game/data' =>'game/game-data',
+        'edit' => 'game/edit-game'
        ],
 ],
 'response' => [

@@ -126,6 +126,100 @@ return ('/user/'.$user.'/games/'.$gameID);
 }
 
 
+
+
+
+public function getSelectedGameData($user, $game){
+
+$allUserGames= $this->database->getReference('/user/'.$user.'/games');
+$gameID ="";
+foreach ($allUserGames->getValue() as $key => $value) {
+            
+            if($value["name"] == $game){
+                $gameID = $key;
+
+                
+            }
+
+            
+            }
+
+  return $this->database->getReference('/user/'.$user.'/games/'.$gameID)->getValue();
+
+
+
+}
+
+/**
+ * 
+ * $user = string
+ * $game = string 
+ * $img = string which is either true or false for if the img will show or not
+ * true of false used as $_POST i believe will only send in string so its to save on
+ * conversion
+ */
+public function editSelectedGame($user, $gameName, $img){
+//so much duplication, need to abstract this out at somepoint
+$allUserGames= $this->database->getReference('/user/'.$user.'/games');
+$gameInfo ="";
+
+
+
+foreach ($allUserGames->getValue() as $key => $value) {
+           
+            if($value["name"] == $gameName){
+                $gameInfo = $key;
+
+                
+            }
+
+
+            
+            }
+$updates=[];
+            if($img == "true"){
+
+$updates = [
+
+/**
+ * 
+ * i believe it is path then key
+ * 
+ */
+
+            '/user/'.$user.'/games/'.$gameInfo.'/name' => $_POST["name"],
+            '/user/'.$user.'/games/'.$gameInfo.'/playerCount' => $_POST["playerCount"],
+           '/user/'.$user.'/games/'.$gameInfo. '/imgRef'=>$_POST["imgRef"],
+            '/user/'.$user.'/games/'.$gameInfo.'/imgAlt'=>$_POST["imgAlt"],
+            '/user/'.$user.'/games/'.$gameInfo.'/description'=>$_POST["description"],
+
+];
+            }else{
+              $updates = [
+
+/**
+ * 
+ * i believe it is path then key
+ * 
+ */
+
+            '/user/'.$user.'/games/'.$gameInfo.'/name' => $_POST["name"],
+            '/user/'.$user.'/games/'.$gameInfo.'/playerCount' => $_POST["playerCount"],
+//           '/user/'.$user.'/games/'.$gameID. '/imgRef'=>$_POST["imgRef"],
+            '/user/'.$user.'/games/'.$gameInfo.'/imgAlt'=>$_POST["imgAlt"],
+            '/user/'.$user.'/games/'.$gameInfo.'/description'=>$_POST["description"],
+
+];
+            }
+
+
+
+$this->database->getReference()->update($updates);
+
+
+
+}
+
 }
 
 
