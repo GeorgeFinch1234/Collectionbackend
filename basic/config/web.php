@@ -21,9 +21,18 @@ $config = [
     'enableStrictParsing' => true,
     'showScriptName' => false,
     'rules' => [
+        /*
         ['class' => 'yii\rest\UrlRule', 'controller' => 'user'],
         ['class' => 'yii\rest\UrlRule', 'controller' => 'game'],
-    ],
+        */
+        'POST login' =>'login/index',
+        'games' => 'game/index', 
+        'create' => 'game/create-game', 
+        'POST signup' => 'login/sign-up',
+        'POST delete/game' => 'game/delete-game',
+        'POST game/data' =>'game/game-data',
+        'edit' => 'game/edit-game'
+       ],
 ],
 'response' => [
     'format' => \yii\web\Response::FORMAT_JSON,
