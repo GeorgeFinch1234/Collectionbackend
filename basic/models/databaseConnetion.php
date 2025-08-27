@@ -57,6 +57,10 @@ return $token;
 
 public function createUser($userName, $password){
 
+  $nameTake = $this->database->getReference('/user/'.$userName)->getValue();
+if($nameTake == null){
+
+
  $snapshot = $this->database->getReference('/user')->update([
 $userName=>[
 
@@ -71,7 +75,9 @@ $userName=>[
 
          return "";
 
-
+        }else{
+          return "name already taken";
+        }
 
 
 

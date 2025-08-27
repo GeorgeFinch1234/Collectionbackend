@@ -16,15 +16,30 @@ class LoginController extends Controller
     $loginCheck = new signIn();
     $validator = new basicValidaiton();
     $token = new databaseConnetion();
-    
+    $errorFrom="";
    $error = $validator->stringManditory($_POST['username']);
+   if($error != ""){
+    $errorFrom = "username";
+   }else{
+    /*
+so only runs if pass initial test, as no need to run multiple test if cant past first
+    */
+
     $error = $validator->stringManditory($_POST['password']);
+   
+    if($error != ""){
+    $errorFrom = "password";
+   }
+   }
+
+
+   
    
    if($error==""){
     /* should make access token here and try to store it
     or make it in another database somwhere
     */
-    
+
     $error= $loginCheck->login($_POST['username'], hash('sha256', $_POST['password']));
 if($error=="") {
 
@@ -34,7 +49,7 @@ if($error=="") {
 }
 
 }else{
-      return   ["error"=>$error];
+      return   ["error"=>$error,  "errorFrom"=>$errorFrom];
     }
     
     
@@ -47,8 +62,8 @@ public function actionSignUp(){
 
     
 $signUp = new databaseConnetion();
-$signUp -> createUser($_POST['username'], $_POST['password']);
-return ["error"=>"", "token"=>$signUp -> setAccessToken($_POST['username'])];
+$outputTest = $signUp -> createUser($_POST['username'], $_POST['password']);
+return ["error"=>$outputTest, "token"=>$signUp -> setAccessToken($_POST['username'])];
 }
 public function behaviors()
 {
