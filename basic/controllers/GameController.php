@@ -60,6 +60,7 @@ $databaseConnection = new databaseConnetion();
  
 
 
+
         $database->getReference('/user/'.$user.'/games')
     ->push([
         
@@ -67,7 +68,13 @@ $databaseConnection = new databaseConnetion();
             'playerCount' => $_POST["playerCount"],
             'imgRef'=>$_POST["imgRef"],
             'imgAlt'=>$_POST["imgAlt"],
-            'description'=>$_POST["description"],
+             'description'=>$_POST["description"],
+            'cost'=>$_POST["cost"],
+            'time'=>$_POST["time"],
+            'minPlayers'=>$_POST["minPlayers"],
+            'maxPlayers'=>$_POST["maxPlayers"],
+            'completed'=>$_POST["fullInBox"],
+           
     
         
     ]);
