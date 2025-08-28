@@ -198,6 +198,11 @@ $updates = [
            '/user/'.$user.'/games/'.$gameInfo. '/imgRef'=>$_POST["imgRef"],
             '/user/'.$user.'/games/'.$gameInfo.'/imgAlt'=>$_POST["imgAlt"],
             '/user/'.$user.'/games/'.$gameInfo.'/description'=>$_POST["description"],
+            '/user/'.$user.'/games/'.$gameInfo.'/cost'=>$_POST["cost"],
+            '/user/'.$user.'/games/'.$gameInfo.'/time'=>$_POST["time"],
+            '/user/'.$user.'/games/'.$gameInfo.'/minPlayers'=>$_POST["minPlayers"],
+            '/user/'.$user.'/games/'.$gameInfo.'/maxPlayers'=>$_POST["maxPlayers"],
+            '/user/'.$user.'/games/'.$gameInfo.'/fullInBox'=>$_POST["fullInBox"],
 
 ];
             }else{
