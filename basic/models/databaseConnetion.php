@@ -231,6 +231,46 @@ $this->database->getReference()->update($updates);
 
 }
 
+
+/**
+ * 
+ * made to find the user for when selecting a game
+ * 
+ * 
+ */
+public function getUserGames(){
+
+
+  return $this->database->getReference('/user/'.$_POST["findUser"])->getValue();
+
+
+
+}
+
+/**
+ * 
+ * 
+ * 
+ * 
+ */
+public function setMessage(){
+
+  $this->database->getReference('/user/'.$_POST["findUser"].'/messages/')->push([
+        
+            'aboutGame' => $_POST["aboutGame"],
+             'subject' => $_POST["subject"],
+              'message' => $_POST["message"],
+            
+           
+    
+        
+    ]);
+
+}
+
+
+
+
 }
 
 

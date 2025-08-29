@@ -109,15 +109,28 @@ $databaseConnection = new databaseConnetion();
 return $databaseConnection->deleteGame($databaseConnection->getUserNameFromToken($_POST["Token"]), $_POST["Game"]);
 }
 
-
+/**
+ * 
+ * use user name token, 
+ * 
+ */
 public function actionGameData(){
 $databaseConnection = new databaseConnetion();
 return $databaseConnection->getSelectedGameData($databaseConnection->getUserNameFromToken($_POST["Token"]), $_POST["Game"]);
 
 
 }
+/**
+ * 
+ * same as above just doesn't use user game token
+ * 
+ */
+public function actionGameDataFromUserName(){
+$databaseConnection = new databaseConnetion();
+return $databaseConnection->getSelectedGameData($_POST["UserName"], $_POST["Game"]);
 
 
+}
 
 
 
