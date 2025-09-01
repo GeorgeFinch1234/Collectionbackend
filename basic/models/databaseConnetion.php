@@ -260,6 +260,7 @@ public function setMessage(){
             'aboutGame' => $_POST["aboutGame"],
              'subject' => $_POST["subject"],
               'message' => $_POST["message"],
+              'from' => $this->getUserNameFromToken($_POST["from"])
             
            
     
@@ -268,6 +269,14 @@ public function setMessage(){
 
 }
 
+
+
+public function getMessages($user){
+
+return $this->database->getReference('/user/'.$user.'/messages/')->getValue();
+
+
+}
 
 
 

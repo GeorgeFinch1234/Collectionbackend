@@ -34,7 +34,9 @@ $config = [
         'edit' => 'game/edit-game',
         'POST find-user' => 'messaging/find-user',
         'POST send-message' => 'messaging/send-message',
-        'POST load-game-for-message' => 'game/game-data-from-user-name'
+        'POST load-game-for-message' => 'game/game-data-from-user-name',
+        'POST get-messages' => 'messaging/get-messages',
+        'POST load-game-for-received-messaging' => 'messaging/game-data-from-user-name',
        ],
 ],
 'response' => [

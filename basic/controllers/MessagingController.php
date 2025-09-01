@@ -43,6 +43,19 @@ return $this->db->setMessage();
 
 }
 
+public function actionGetMessages(){
+//$this->db->getUserNameFromToken($_POST["Token"])
+return $this->db->getMessages($this->db->getUserNameFromToken($_POST["token"]));
+
+}
+
+public function actionGameDataFromUserName(){
+$databaseConnection = new databaseConnetion();
+return $databaseConnection->getSelectedGameData($this->db->getUserNameFromToken($_POST["UserName"]), $_POST["Game"]);
+
+
+}
+
 
 public function behaviors()
 {
