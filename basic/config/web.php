@@ -31,8 +31,14 @@ $config = [
         'POST signup' => 'login/sign-up',
         'POST delete/game' => 'game/delete-game',
         'POST game/data' =>'game/game-data',
-        'edit' => 'game/edit-game'
-       ],
+        'edit' => 'game/edit-game',
+        'POST find-user' => 'messaging/find-user',
+        'POST send-message' => 'messaging/send-message',
+        'POST load-game-for-message' => 'game/game-data-from-user-name',
+        'POST get-messages' => 'messaging/get-messages',
+        'POST load-game-for-received-messaging' => 'messaging/game-data-from-user-name',
+        'POST games-filter' => 'game/games-filter',
+    ],
 ],
 'response' => [
     'format' => \yii\web\Response::FORMAT_JSON,

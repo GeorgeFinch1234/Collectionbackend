@@ -60,14 +60,21 @@ $databaseConnection = new databaseConnetion();
  
 
 
+
         $database->getReference('/user/'.$user.'/games')
     ->push([
         
             'name' => $_POST["name"],
-            'playerCount' => $_POST["playerCount"],
+            'playerCount' =>(int) $_POST["playerCount"],
             'imgRef'=>$_POST["imgRef"],
             'imgAlt'=>$_POST["imgAlt"],
-            'description'=>$_POST["description"],
+             'description'=>$_POST["description"],
+            'cost'=>(int)$_POST["cost"],
+            'time'=>(int)$_POST["time"],
+            'minPlayers'=>(int)$_POST["minPlayers"],
+            'maxPlayers'=>(int)$_POST["maxPlayers"],
+            'completed'=>$_POST["fullInBox"],
+           
     
         
     ]);
@@ -102,17 +109,37 @@ $databaseConnection = new databaseConnetion();
 return $databaseConnection->deleteGame($databaseConnection->getUserNameFromToken($_POST["Token"]), $_POST["Game"]);
 }
 
-
+/**
+ * 
+ * use user name token, 
+ * 
+ */
 public function actionGameData(){
 $databaseConnection = new databaseConnetion();
 return $databaseConnection->getSelectedGameData($databaseConnection->getUserNameFromToken($_POST["Token"]), $_POST["Game"]);
 
 
 }
+/**
+ * 
+ * same as above just doesn't use user game token
+ * 
+ */
+public function actionGameDataFromUserName(){
+$databaseConnection = new databaseConnetion();
+return $databaseConnection->getSelectedGameData($_POST["UserName"], $_POST["Game"]);
 
 
+}
+
+public function actionGamesFilter(){
 
 
+$databaseConnection = new databaseConnetion();
+//$databaseConnection->getUserNameFromToken($_POST["Token"])
+return $databaseConnection->getFilteredGameCollection($databaseConnection->getUserNameFromToken($_POST["Token"]));
+
+}
 
 
 

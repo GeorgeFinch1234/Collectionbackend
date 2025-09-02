@@ -198,6 +198,11 @@ $updates = [
            '/user/'.$user.'/games/'.$gameInfo. '/imgRef'=>$_POST["imgRef"],
             '/user/'.$user.'/games/'.$gameInfo.'/imgAlt'=>$_POST["imgAlt"],
             '/user/'.$user.'/games/'.$gameInfo.'/description'=>$_POST["description"],
+            '/user/'.$user.'/games/'.$gameInfo.'/cost'=>$_POST["cost"],
+            '/user/'.$user.'/games/'.$gameInfo.'/time'=>$_POST["time"],
+            '/user/'.$user.'/games/'.$gameInfo.'/minPlayers'=>$_POST["minPlayers"],
+            '/user/'.$user.'/games/'.$gameInfo.'/maxPlayers'=>$_POST["maxPlayers"],
+            '/user/'.$user.'/games/'.$gameInfo.'/fullInBox'=>$_POST["fullInBox"],
 
 ];
             }else{
@@ -225,6 +230,75 @@ $this->database->getReference()->update($updates);
 
 
 }
+
+
+/**
+ * 
+ * made to find the user for when selecting a game
+ * 
+ * 
+ */
+public function getUserGames(){
+
+
+  return $this->database->getReference('/user/'.$_POST["findUser"])->getValue();
+
+
+
+}
+
+/**
+ * 
+ * 
+ * 
+ * 
+ */
+public function setMessage(){
+
+  $this->database->getReference('/user/'.$_POST["findUser"].'/messages/')->push([
+        
+            'aboutGame' => $_POST["aboutGame"],
+             'subject' => $_POST["subject"],
+              'message' => $_POST["message"],
+              'from' => $this->getUserNameFromToken($_POST["from"])
+            
+           
+    
+        
+    ]);
+
+}
+
+
+
+public function getMessages($user){
+
+return $this->database->getReference('/user/'.$user.'/messages/')->getValue();
+
+
+}
+
+
+
+
+
+
+public function getFilteredGameCollection($userName){
+
+
+
+
+  return $this->database->getReference('/user/'.$userName.'/games')->orderByChild($_POST['filterBy'])->startAt((int)$_POST['startAt'])->endAt((int)$_POST['endAt'])->getValue() ;
+}
+
+
+
+
+
+
+
+
+
 
 }
 
