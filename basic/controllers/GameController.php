@@ -65,14 +65,14 @@ $databaseConnection = new databaseConnetion();
     ->push([
         
             'name' => $_POST["name"],
-            'playerCount' => $_POST["playerCount"],
+            'playerCount' =>(int) $_POST["playerCount"],
             'imgRef'=>$_POST["imgRef"],
             'imgAlt'=>$_POST["imgAlt"],
              'description'=>$_POST["description"],
-            'cost'=>$_POST["cost"],
-            'time'=>$_POST["time"],
-            'minPlayers'=>$_POST["minPlayers"],
-            'maxPlayers'=>$_POST["maxPlayers"],
+            'cost'=>(int)$_POST["cost"],
+            'time'=>(int)$_POST["time"],
+            'minPlayers'=>(int)$_POST["minPlayers"],
+            'maxPlayers'=>(int)$_POST["maxPlayers"],
             'completed'=>$_POST["fullInBox"],
            
     
@@ -132,7 +132,14 @@ return $databaseConnection->getSelectedGameData($_POST["UserName"], $_POST["Game
 
 }
 
+public function actionGamesFilter(){
 
+
+$databaseConnection = new databaseConnetion();
+//$databaseConnection->getUserNameFromToken($_POST["Token"])
+return $databaseConnection->getFilteredGameCollection($databaseConnection->getUserNameFromToken($_POST["Token"]));
+
+}
 
 
 

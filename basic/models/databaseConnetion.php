@@ -280,6 +280,26 @@ return $this->database->getReference('/user/'.$user.'/messages/')->getValue();
 
 
 
+
+
+
+public function getFilteredGameCollection($userName){
+
+
+
+
+  return $this->database->getReference('/user/'.$userName.'/games')->orderByChild($_POST['filterBy'])->startAt((int)$_POST['startAt'])->endAt((int)$_POST['endAt'])->getValue() ;
+}
+
+
+
+
+
+
+
+
+
+
 }
 
 

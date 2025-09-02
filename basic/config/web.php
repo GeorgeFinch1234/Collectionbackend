@@ -37,7 +37,8 @@ $config = [
         'POST load-game-for-message' => 'game/game-data-from-user-name',
         'POST get-messages' => 'messaging/get-messages',
         'POST load-game-for-received-messaging' => 'messaging/game-data-from-user-name',
-       ],
+        'POST games-filter' => 'game/games-filter',
+    ],
 ],
 'response' => [
     'format' => \yii\web\Response::FORMAT_JSON,
