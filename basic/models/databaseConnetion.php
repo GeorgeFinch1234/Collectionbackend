@@ -294,7 +294,12 @@ public function getFilteredGameCollection($userName){
 
 
 
+public function deleteMessage(){
 
+$this->database->getReference('/user/'.$this->getUserNameFromToken($_POST['UserName']).'/messages/'.$_POST['messageID'])->set(null);
+
+
+}
 
 
 

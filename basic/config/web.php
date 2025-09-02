@@ -38,6 +38,7 @@ $config = [
         'POST get-messages' => 'messaging/get-messages',
         'POST load-game-for-received-messaging' => 'messaging/game-data-from-user-name',
         'POST games-filter' => 'game/games-filter',
+        'POST message/delete'=>'messaging/delete'
     ],
 ],
 'response' => [

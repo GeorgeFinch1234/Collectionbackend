@@ -57,6 +57,23 @@ return $databaseConnection->getSelectedGameData($this->db->getUserNameFromToken(
 }
 
 
+
+
+public function actionDelete(){
+
+return $this->db->deleteMessage();
+
+}
+
+
+
+
+
+
+
+
+
+
 public function behaviors()
 {
     $behaviors = parent::behaviors();
