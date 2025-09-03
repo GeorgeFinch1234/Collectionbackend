@@ -42,6 +42,13 @@ $config = [
         'POST message/Specific' => 'messaging/get-specific-message',
         'POST message/reply' => 'messaging/set-message-reply',
         'POST message/Specific/not-token' => 'messaging/get-specific-message-not-token',
+        'POST settings/delete' => 'settings/delete-account',
+        'POST settings/collection' => 'settings/clear-collection',
+        'POST settings/messages' => 'settings/clear-messages',
+    
+
+    
+
     ],
 ],
 'response' => [

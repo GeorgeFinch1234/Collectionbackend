@@ -353,7 +353,7 @@ public function createGame(){
  
 $myfile = fopen("newfile2.txt", "w") or die("Unable to open file!");
 
-
+if($allGames != null){
  foreach($allGames as $key => $game){
 
 
@@ -370,7 +370,7 @@ $myfile = fopen("newfile2.txt", "w") or die("Unable to open file!");
  
   }
 
-
+}
 if(!$gameNameTaken){
 
         $this->database->getReference('/user/'.$user.'/games')
@@ -404,8 +404,15 @@ if(!$gameNameTaken){
 
 
 
-
-
+public function deleteAcount(){
+$this->database->getReference('/user/'.$this->getUserNameFromToken($_POST["token"]))->set(null);
+}
+public function clearCollection(){
+  $this->database->getReference('/user/'.$this->getUserNameFromToken($_POST["token"]).'/games')->set(null);
+}
+public function clearMessages(){
+  $this->database->getReference('/user/'.$this->getUserNameFromToken($_POST["token"]).'/meessages')->set(null);
+}
 
 
 
