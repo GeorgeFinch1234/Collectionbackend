@@ -340,8 +340,77 @@ $this->database->getReference('/user/'.$_POST["findUser"].'/messages/')->push([
 
 
 
+public function createGame(){
+
+ $user= $this->getUserNameFromToken($_POST["token"]);
 
 
+       
+
+ $allGames = $this->database->getReference('/user/'.$user.'/games/')->getValue();
+ $gameNameTaken = false;      
+ 
+ 
+$myfile = fopen("newfile2.txt", "w") or die("Unable to open file!");
+
+
+ foreach($allGames as $key => $game){
+
+
+
+
+
+
+  if($game["name"] == $_POST["name"] ){
+
+    $gameNameTaken = true;
+    break; 
+  
+    }
+ 
+  }
+
+
+if(!$gameNameTaken){
+
+        $this->database->getReference('/user/'.$user.'/games')
+    ->push([
+        
+            'name' => $_POST["name"],
+            'playerCount' =>(int) $_POST["playerCount"],
+            'imgRef'=>$_POST["imgRef"],
+            'imgAlt'=>$_POST["imgAlt"],
+             'description'=>$_POST["description"],
+            'cost'=>(int)$_POST["cost"],
+            'time'=>(int)$_POST["time"],
+            'minPlayers'=>(int)$_POST["minPlayers"],
+            'maxPlayers'=>(int)$_POST["maxPlayers"],
+            'completed'=>$_POST["fullInBox"],
+           
+    
+        
+    ]);
+
+
+
+    return "";
+        
+  }else{
+    return "name already taken by another game in library";
+  }
+
+
+}
+
+
+
+
+
+
+
+
+
+  
 }
 
 

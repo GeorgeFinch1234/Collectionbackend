@@ -35,53 +35,9 @@ $databaseConnection = new databaseConnetion();
     }
   
     public function actionCreateGame(){
-
-       
-
-        $factory = (new Factory)->withServiceAccount("../config/firebase_credentials.json");
-        $factory = $factory->withDatabaseUri((new \app\models\DBURL)->URL);
-        $database = $factory->createDatabase();
-
-            $allTokens= $database->getReference('/accessTokens');
-
-            $user="";
-//return $allTokens->getValue();
-//return ""
-        foreach ($allTokens->getValue() as $key => $value) {
-            
-            if($value["token"] == $_POST["token"]){
-                $user =$value["user"];
-
-                
-            }
-
-            
-            }
- 
-
-
-
-        $database->getReference('/user/'.$user.'/games')
-    ->push([
-        
-            'name' => $_POST["name"],
-            'playerCount' =>(int) $_POST["playerCount"],
-            'imgRef'=>$_POST["imgRef"],
-            'imgAlt'=>$_POST["imgAlt"],
-             'description'=>$_POST["description"],
-            'cost'=>(int)$_POST["cost"],
-            'time'=>(int)$_POST["time"],
-            'minPlayers'=>(int)$_POST["minPlayers"],
-            'maxPlayers'=>(int)$_POST["maxPlayers"],
-            'completed'=>$_POST["fullInBox"],
-           
-    
-        
-    ]);
-
-
-
-    return "success";
+$databaseConnection = new databaseConnetion();
+return $databaseConnection->createGame();
+     
     }
 
 
