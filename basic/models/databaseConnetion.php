@@ -260,9 +260,9 @@ public function setMessage(){
             'aboutGame' => $_POST["aboutGame"],
              'subject' => $_POST["subject"],
               'message' => $_POST["message"],
-              'from' => $this->getUserNameFromToken($_POST["from"])
-            
-           
+              'from' => $this->getUserNameFromToken($_POST["from"]),
+            'to' =>$_POST["findUser"],
+           'lastMessageID' =>"",
     
         
     ]);
@@ -297,6 +297,43 @@ public function getFilteredGameCollection($userName){
 public function deleteMessage(){
 
 $this->database->getReference('/user/'.$this->getUserNameFromToken($_POST['UserName']).'/messages/'.$_POST['messageID'])->set(null);
+
+
+}
+
+
+public function getSpecificMessage(){
+
+return $this->database->getReference('/user/'.$this->getUserNameFromToken($_POST['UserName']).'/messages/'.$_POST['messageID'])->getValue();
+
+
+
+  
+}
+public function getSpecificMessageNotToken(){
+
+return $this->database->getReference('/user/'.$_POST['UserName'].'/messages/'.$_POST['messageID'])->getValue();
+
+
+
+  
+}
+
+
+public function setMessageReply(){
+
+$this->database->getReference('/user/'.$_POST["findUser"].'/messages/')->push([
+        
+            'aboutGame' => $_POST["aboutGame"],
+             'subject' => $_POST["subject"],
+              'message' => $_POST["message"],
+              'from' => $this->getUserNameFromToken($_POST["from"]),
+              'lastMessageID' =>$_POST["lastMessageID"],
+            'to' =>$_POST["findUser"]
+           
+    
+        
+    ]);
 
 
 }
