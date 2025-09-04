@@ -45,11 +45,17 @@ $config = [
         'POST settings/delete' => 'settings/delete-account',
         'POST settings/collection' => 'settings/clear-collection',
         'POST settings/messages' => 'settings/clear-messages',
+        'POST settings/delete-no-token' => 'settings/delete-account-no-token',
+        'POST settings/collection-no-token' => 'settings/clear-collection-no-token',
+        'POST settings/messages-no-token' => 'settings/clear-messages-no-token',
+        'POST users/get' => 'user/get-all-users',
+        'POST user/admin-status' => 'user/set-admin-status',
+        'POST user/user-from-token' => 'user/get-user-name-from-access-token'
     
 
     
 
-    ],
+    ]
 ],
 'response' => [
     'format' => \yii\web\Response::FORMAT_JSON,

@@ -66,7 +66,8 @@ $userName=>[
 
 "password"=>hash('sha256', $password),
 //need for when looking for them in signup
-"username" =>$userName
+"username" =>$userName,
+"admin" => "false"
 ]
 
 
@@ -415,9 +416,89 @@ public function clearMessages(){
 }
 
 
+public function deleteAcountNoToken(){
+
+$users = $this->database->getReference('/user')->getvalue();
+  $numberOFAdmin=0;
+foreach($users as $key => $user){
+
+if($user["admin"]=="true"){
+  $numberOFAdmin = $numberOFAdmin + 1;
+ 
+}
+}
+if($_POST["admin"]=="true" && $numberOFAdmin<=1){
+return "last admin account cant be deleted";
+}else{
+
+  
+
+$this->database->getReference('/user/'.$_POST["token"])->set(null);
+return "";
+}
+
+}
+public function clearCollectionNoToken(){
+  $this->database->getReference('/user/'.$_POST["token"].'/games')->set(null);
+}
+public function clearMessagesNoToken(){
+  $this->database->getReference('/user/'.$_POST["token"].'/meessages')->set(null);
+}
+
+
+public function getAllUsers(){
+
+
+return $this->database->getReference('/user/')->getValue();
+
+}
+public function getAdminStatus(){
+$adminStatus = $this->database->getReference('/user/'.$_POST['username'].'/admin')->getValue();
+
+if($adminStatus!="true"){
+  return false;
+
+}else{
+  return true;
+}
+
+}
+
+  
+public function setAdminStatus(){
 
 
   
+  $numberOFAdmin = 0;
+   
+if($_POST['adminStatus']=="false"){
+
+$users = $this->database->getReference('/user')->getvalue();
+
+foreach($users as $key => $user){
+
+if($user["admin"]=="true"){
+  $numberOFAdmin = $numberOFAdmin + 1;
+ 
+}
+
+}
+
+}
+
+
+if(($_POST['adminStatus']=="false" && $numberOFAdmin>1) ||$_POST['adminStatus']=="true"){
+
+$this->database->getReference('/user/'.$_POST['username'].'/admin')->set($_POST['adminStatus']);
+return "";
+}else{
+  return "cant remove the last admin";
+}
+
+
+}
+
+
 }
 
 

@@ -31,6 +31,15 @@ $this->db->clearCollection();
     }
 
 
+    public function actionDeleteAccountNoToken(){
+return $this->db->deleteAcountNoToken();
+    }
+    public function actionClearCollectionNoToken(){
+$this->db->clearCollectionNoToken();
+    }
+    public function actionClearMessagesNoToken(){
+       $this->db-> clearMessagesNoToken();
+    }
 
 
 
