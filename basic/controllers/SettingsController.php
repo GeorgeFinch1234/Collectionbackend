@@ -2,10 +2,9 @@
 namespace app\controllers;
 
 use yii\rest\Controller;
-use app\models\User;
 use app\models\databaseConnetion;
 
-class UserController extends Controller
+class SettingsController extends Controller
 {
 
 public $db;
@@ -19,35 +18,29 @@ $this->db = new databaseConnetion();
 }
 
 
-    public function actionIndex()
-    {
-        return $output = new User;
+
+
+    public function actionDeleteAccount(){
+
+        return $this->db->deleteAcount();
+    }
+    public function actionClearCollection(){
+$this->db->clearCollection();
+    }
+    public function actionClearMessages(){
+       $this->db-> clearMessages();
     }
 
 
-    public function actionGetAllUsers(){
-
-
-return $this->db->getAllUsers();
-
+    public function actionDeleteAccountNoToken(){
+return $this->db->deleteAcountNoToken();
     }
-public function actionSetAdminStatus(){
-
-
-
-
-return $this->db->setAdminStatus();
-
-}
-
-
-
-public function actionGetUserNameFromAccessToken(){
-
-return $this->db->getUserNameFromToken($_POST["token"]);
-
-
-}
+    public function actionClearCollectionNoToken(){
+$this->db->clearCollectionNoToken();
+    }
+    public function actionClearMessagesNoToken(){
+       $this->db-> clearMessagesNoToken();
+    }
 
 
 
@@ -55,10 +48,28 @@ return $this->db->getUserNameFromToken($_POST["token"]);
 
 
 
- 
 
 
- public function behaviors()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public function behaviors()
 {
     $behaviors = parent::behaviors();
 
@@ -79,10 +90,4 @@ return $this->db->getUserNameFromToken($_POST["token"]);
 
     return $behaviors;
 } 
-
-
-
-
-
-
 }

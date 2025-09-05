@@ -66,7 +66,8 @@ $userName=>[
 
 "password"=>hash('sha256', $password),
 //need for when looking for them in signup
-"username" =>$userName
+"username" =>$userName,
+"admin" => "false"
 ]
 
 
@@ -260,9 +261,9 @@ public function setMessage(){
             'aboutGame' => $_POST["aboutGame"],
              'subject' => $_POST["subject"],
               'message' => $_POST["message"],
-              'from' => $this->getUserNameFromToken($_POST["from"])
-            
-           
+              'from' => $this->getUserNameFromToken($_POST["from"]),
+            'to' =>$_POST["findUser"],
+           'lastMessageID' =>"",
     
         
     ]);
@@ -294,10 +295,240 @@ public function getFilteredGameCollection($userName){
 
 
 
+public function deleteMessage(){
+
+$this->database->getReference('/user/'.$this->getUserNameFromToken($_POST['UserName']).'/messages/'.$_POST['messageID'])->set(null);
+
+
+}
+
+
+public function getSpecificMessage(){
+
+return $this->database->getReference('/user/'.$this->getUserNameFromToken($_POST['UserName']).'/messages/'.$_POST['messageID'])->getValue();
+
+
+
+  
+}
+public function getSpecificMessageNotToken(){
+
+return $this->database->getReference('/user/'.$_POST['UserName'].'/messages/'.$_POST['messageID'])->getValue();
+
+
+
+  
+}
+
+
+public function setMessageReply(){
+
+$this->database->getReference('/user/'.$_POST["findUser"].'/messages/')->push([
+        
+            'aboutGame' => $_POST["aboutGame"],
+             'subject' => $_POST["subject"],
+              'message' => $_POST["message"],
+              'from' => $this->getUserNameFromToken($_POST["from"]),
+              'lastMessageID' =>$_POST["lastMessageID"],
+            'to' =>$_POST["findUser"]
+           
+    
+        
+    ]);
+
+
+}
+
+
+
+public function createGame(){
+
+ $user= $this->getUserNameFromToken($_POST["token"]);
+
+
+       
+
+ $allGames = $this->database->getReference('/user/'.$user.'/games/')->getValue();
+ $gameNameTaken = false;      
+ 
+ 
+$myfile = fopen("newfile2.txt", "w") or die("Unable to open file!");
+
+if($allGames != null){
+ foreach($allGames as $key => $game){
 
 
 
 
+
+
+  if($game["name"] == $_POST["name"] ){
+
+    $gameNameTaken = true;
+    break; 
+  
+    }
+ 
+  }
+
+}
+if(!$gameNameTaken){
+
+        $this->database->getReference('/user/'.$user.'/games')
+    ->push([
+        
+            'name' => $_POST["name"],
+            'playerCount' =>(int) $_POST["playerCount"],
+            'imgRef'=>$_POST["imgRef"],
+            'imgAlt'=>$_POST["imgAlt"],
+             'description'=>$_POST["description"],
+            'cost'=>(int)$_POST["cost"],
+            'time'=>(int)$_POST["time"],
+            'minPlayers'=>(int)$_POST["minPlayers"],
+            'maxPlayers'=>(int)$_POST["maxPlayers"],
+            'completed'=>$_POST["fullInBox"],
+           
+    
+        
+    ]);
+
+
+
+    return "";
+        
+  }else{
+    return "name already taken by another game in library";
+  }
+
+
+}
+
+
+/**
+ * 
+ * need to find out if its a user or not
+ * 
+ */
+public function deleteAcount(){
+
+
+$adminStatus = $this->database->getReference('/user/'.$this->getUserNameFromToken($_POST["token"]).'/admin')->getValue();
+
+
+$users = $this->database->getReference('/user')->getvalue();
+  $numberOFAdmin=0;
+foreach($users as $key => $user){
+
+if($user["admin"]=="true"){
+  $numberOFAdmin = $numberOFAdmin + 1;
+ 
+}
+}
+
+
+if($adminStatus=="true" && $numberOFAdmin<=1){
+return "last admin account cant be deleted";
+}else{
+
+  
+
+$this->database->getReference('/user/'.$this->getUserNameFromToken($_POST["token"]))->set(null);
+return "";
+}
+
+
+
+
+}
+public function clearCollection(){
+  $this->database->getReference('/user/'.$this->getUserNameFromToken($_POST["token"]).'/games')->set(null);
+}
+public function clearMessages(){
+  $this->database->getReference('/user/'.$this->getUserNameFromToken($_POST["token"]).'/meessages')->set(null);
+}
+
+
+public function deleteAcountNoToken(){
+
+$users = $this->database->getReference('/user')->getvalue();
+  $numberOFAdmin=0;
+foreach($users as $key => $user){
+
+if($user["admin"]=="true"){
+  $numberOFAdmin = $numberOFAdmin + 1;
+ 
+}
+}
+if($_POST["admin"]=="true" && $numberOFAdmin<=1){
+return "last admin account cant be deleted";
+}else{
+
+  
+
+$this->database->getReference('/user/'.$_POST["token"])->set(null);
+return "";
+}
+
+}
+public function clearCollectionNoToken(){
+  $this->database->getReference('/user/'.$_POST["token"].'/games')->set(null);
+}
+public function clearMessagesNoToken(){
+  $this->database->getReference('/user/'.$_POST["token"].'/meessages')->set(null);
+}
+
+
+public function getAllUsers(){
+
+
+return $this->database->getReference('/user/')->getValue();
+
+}
+public function getAdminStatus(){
+$adminStatus = $this->database->getReference('/user/'.$_POST['username'].'/admin')->getValue();
+
+if($adminStatus!="true"){
+  return false;
+
+}else{
+  return true;
+}
+
+}
+
+  
+public function setAdminStatus(){
+
+
+  
+  $numberOFAdmin = 0;
+   
+if($_POST['adminStatus']=="false"){
+
+$users = $this->database->getReference('/user')->getvalue();
+
+foreach($users as $key => $user){
+
+if($user["admin"]=="true"){
+  $numberOFAdmin = $numberOFAdmin + 1;
+ 
+}
+
+}
+
+}
+
+
+if(($_POST['adminStatus']=="false" && $numberOFAdmin>1) ||$_POST['adminStatus']=="true"){
+
+$this->database->getReference('/user/'.$_POST['username'].'/admin')->set($_POST['adminStatus']);
+return "";
+}else{
+  return "cant remove the last admin";
+}
+
+
+}
 
 
 }

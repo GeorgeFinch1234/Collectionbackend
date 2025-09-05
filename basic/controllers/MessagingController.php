@@ -57,6 +57,48 @@ return $databaseConnection->getSelectedGameData($this->db->getUserNameFromToken(
 }
 
 
+
+
+public function actionDelete(){
+
+return $this->db->deleteMessage();
+
+}
+
+
+
+
+public function actionGetSpecificMessage(){
+
+$data =$this->db->getSpecificMessage();
+
+$data['ID']=$_POST['messageID'];
+return $data;
+
+
+}
+
+
+public function actionGetSpecificMessageNotToken(){
+ 
+$data =$this->db->getSpecificMessageNotToken();
+
+$data['ID']=$_POST['messageID'];
+return $data;
+
+
+}
+
+
+public function actionSetMessageReply(){
+
+$this->db->setMessageReply();
+
+}
+
+
+
+
 public function behaviors()
 {
     $behaviors = parent::behaviors();

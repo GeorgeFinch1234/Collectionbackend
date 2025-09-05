@@ -43,7 +43,7 @@ so only runs if pass initial test, as no need to run multiple test if cant past 
     $error= $loginCheck->login($_POST['username'], hash('sha256', $_POST['password']));
 if($error=="") {
 
-    return ["error"=>$error, "token"=>$token -> setAccessToken($_POST['username'])];
+    return ["error"=>$error, "token"=>$token -> setAccessToken($_POST['username']),"isAdmin"=>$token->getAdminStatus()];
 }  else{
     return ["error"=>$error];
 }
