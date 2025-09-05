@@ -21,7 +21,8 @@ $this->db = new databaseConnetion();
 
 
     public function actionDeleteAccount(){
-$this->db->deleteAcount();
+
+        return $this->db->deleteAcount();
     }
     public function actionClearCollection(){
 $this->db->clearCollection();

@@ -404,9 +404,41 @@ if(!$gameNameTaken){
 }
 
 
-
+/**
+ * 
+ * need to find out if its a user or not
+ * 
+ */
 public function deleteAcount(){
+
+
+$adminStatus = $this->database->getReference('/user/'.$this->getUserNameFromToken($_POST["token"]).'/admin')->getValue();
+
+
+$users = $this->database->getReference('/user')->getvalue();
+  $numberOFAdmin=0;
+foreach($users as $key => $user){
+
+if($user["admin"]=="true"){
+  $numberOFAdmin = $numberOFAdmin + 1;
+ 
+}
+}
+
+
+if($adminStatus=="true" && $numberOFAdmin<=1){
+return "last admin account cant be deleted";
+}else{
+
+  
+
 $this->database->getReference('/user/'.$this->getUserNameFromToken($_POST["token"]))->set(null);
+return "";
+}
+
+
+
+
 }
 public function clearCollection(){
   $this->database->getReference('/user/'.$this->getUserNameFromToken($_POST["token"]).'/games')->set(null);
